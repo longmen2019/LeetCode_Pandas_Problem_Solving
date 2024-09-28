@@ -16,6 +16,7 @@ activity = pd.DataFrame(data)
 activity['event_date'] = pd.to_datetime(activity['event_date'])
 
 # Find the first login date for each player
+result = activity.groupby('player_id')['event_date'].min().reset_index()
 # activity.groupby('player_id'): this part of the code groups the DataFrame activity by the player_id column.
 # Grouping means that all rows with the same player_id are collected together.
 # After grouping by player_id, we select the event_date column from each group.
@@ -26,6 +27,5 @@ activity['event_date'] = pd.to_datetime(activity['event_date'])
 # By default, the groupby operation results in a Series with player_id as the index.
 # reset_index() moves player_id back to a regular column and resets the index to the default integer index
 
-result = activity.groupby('player_id')['event_date'].min().reset_index()
 result.columns =['player_id', 'event_date']
 print(result)
